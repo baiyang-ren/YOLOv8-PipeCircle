@@ -4,7 +4,10 @@ import yaml
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Train YOLOv8 circle model")
-    parser.add_argument('--data', type=str, required=True, help='Dataset YAML')
+
+    # parser.add_argument('--data', type=str, required=True, default='datasets/PipeCircle/data_PipeCircle.yaml', help='Dataset YAML')
+    parser.add_argument('--data', type=str, default='datasets/PipeCircle/data_PipeCircle.yaml', help='Dataset YAML')
+
     parser.add_argument('--weights', type=str, default='yolov8n.pt', help='Pretrained weights')
     parser.add_argument('--epochs', type=int, default=100)
     parser.add_argument('--batch', type=int, default=16)

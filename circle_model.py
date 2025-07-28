@@ -94,5 +94,6 @@ def load_yolov8_circle(weights: str = "yolov8n.pt", nc: int = 80) -> YOLO:
                 dst_state[k] = src_state[k]
         dst.load_state_dict(dst_state, strict=False)
 
+
     model.model.model[-1] = circle_head
     return model

@@ -30,6 +30,8 @@ For example, to train on the first GPU:
 python train.py --data datasets/your_dataset.yaml --device 0
 ```
 
+python train.py --data datasets/joint_any_v2_full/data_AnyJoint.yaml --device 0 --weights yolov8n.pt --epochs 100 --freeze 10
+
 The training script detects a CUDA capable device automatically. Use the
 `--device` option to explicitly choose a device (e.g. `0` for the first GPU or
 `cpu`).
@@ -48,6 +50,12 @@ As with the box model, training uses the GPU when available. Specify a
 particular device with `--device` if needed. When the number of classes in your
 dataset differs from the pretrained weights, only the compatible layers of the
 head are loaded and the rest are initialized randomly.
+
+python train_circle.py --data datasets/PipeCircle/data_PipeCircle.yaml --weights yolov8n.pt --epochs 100
+
+As with the box model, training uses the GPU when available. Specify a
+particular device with `--device` if needed.
+
 
 ## Inference
 
