@@ -1,5 +1,4 @@
 import argparse
-from ultralytics import YOLO
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Train YOLOv8 on a custom dataset")
@@ -9,13 +8,16 @@ def parse_args():
     parser.add_argument('--batch', type=int, default=16, help='Batch size')
     parser.add_argument('--img-size', type=int, default=640, help='Image size')
     parser.add_argument('--freeze', type=int, default=None, help='Number of layers to freeze')
+    parser.add_argument('--device', type=str, default='cuda', help='Computation device')
     return parser.parse_args()
 
 
 def main():
     args = parse_args()
+    from ultralytics import YOLO
     model = YOLO(args.weights)
-    model.train(data=args.data, epochs=args.epochs, imgsz=args.img_size, batch=args.batch, freeze=args.freeze)
+    model.train(data=args.data, epochs=args.epochs, imgsz=args.img_size,
+                batch=args.batch, freeze=args.freeze, device=args.device)
 
 
 if __name__ == '__main__':

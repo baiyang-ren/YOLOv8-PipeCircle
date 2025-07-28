@@ -4,7 +4,9 @@ This repository provides a basic setup for training and running inference with a
 
 ## Setup
 
-Install dependencies using `pip`:
+Install PyTorch with GPU support following the [official instructions](https://pytorch.org/get-started/locally/)
+for your CUDA version. After PyTorch is installed, install the remaining
+dependencies:
 
 ```bash
 pip install -r requirements.txt
@@ -23,6 +25,14 @@ Run training with:
 ```bash
 python train.py --data datasets/your_dataset.yaml --weights yolov8n.pt --epochs 100
 ```
+For example, to train on the first GPU:
+```bash
+python train.py --data datasets/your_dataset.yaml --device 0
+```
+
+The training script detects a CUDA capable device automatically. Use the
+`--device` option to explicitly choose a device (e.g. `0` for the first GPU or
+`cpu`).
 
 Use the `--freeze` argument to freeze the first N layers of the network when fine‑tuning.
 
@@ -34,6 +44,9 @@ Phase 2 introduces a modified YOLO head that predicts circle center `(x, y)` and
 python train_circle.py --data datasets/your_dataset.yaml --weights yolov8n.pt --epochs 100
 ```
 
+As with the box model, training uses the GPU when available. Specify a
+particular device with `--device` if needed.
+
 ## Inference
 
 After training, run inference on images with:
@@ -42,11 +55,24 @@ After training, run inference on images with:
 python infer.py --weights path/to/best.pt --source path/to/images --save
 ```
 
+Inference also defaults to the first CUDA device when available. Pass
+`--device cpu` to force CPU mode.
+Example using a GPU:
+```bash
+python infer.py --weights path/to/best.pt --source images/ --device 0
+```
+
 Results will be printed to the console and optionally saved alongside the source images.
 
 For the circle model use:
 
 ```bash
 python infer_circle.py --weights circle_trained.pt --data datasets/your_dataset.yaml --source path/to/image.jpg --save
+```
+
+The `--device` option is available here as well.
+Example:
+```bash
+python infer_circle.py --weights circle_trained.pt --data datasets/your_dataset.yaml --source img.jpg --device 0
 ```
 
