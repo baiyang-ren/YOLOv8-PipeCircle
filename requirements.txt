@@ -1,6 +1,5 @@
-torch==2.3.0+cpu
---extra-index-url https://download.pytorch.org/whl/cpu
-torchvision==0.18.0+cpu
+torch==2.3.0
+torchvision==0.18.0
 ultralytics==8.3.170
 opencv-python-headless
 pillow
