@@ -29,6 +29,8 @@ class CircleDetect(nn.Module):
         self.reg_max = 16
         self.no = nc + self.reg_max * 3
         self.stride = torch.zeros(self.nl)
+        self.f = [15, 18, 21]  # Feature layer indices (same as original Detect)
+        self.i = 22  # Layer index (same as original Detect)
         c2, c3 = max((16, ch[0] // 4, self.reg_max * 3)), max(ch[0], min(self.nc, 100))
         self.cv2 = nn.ModuleList(
             nn.Sequential(Conv(x, c2, 3), Conv(c2, c2, 3), nn.Conv2d(c2, 3 * self.reg_max, 1)) for x in ch
