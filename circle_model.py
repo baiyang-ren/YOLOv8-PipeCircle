@@ -85,9 +85,15 @@ def load_yolov8_circle(weights: str = "yolov8n.pt", nc: int = 80) -> YOLO:
     circle_head = CircleDetect(nc=nc, ch=ch)
     circle_head.stride = head.stride
 
-    # Copy classification weights
+    # Copy classification weights for any layers with matching shapes
     for src, dst in zip(head.cv3, circle_head.cv3):
-        dst.load_state_dict(src.state_dict())
+        src_state = src.state_dict()
+        dst_state = dst.state_dict()
+        for k, v in dst_state.items():
+            if k in src_state and src_state[k].shape == v.shape:
+                dst_state[k] = src_state[k]
+        dst.load_state_dict(dst_state, strict=False)
+
 
     model.model.model[-1] = circle_head
     return model
