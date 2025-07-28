@@ -1,0 +1,13 @@
+torch==2.3.0
+torchvision==0.18.0
+ultralytics==8.3.170
+opencv-python-headless
+pillow
+numpy
+pyyaml
+requests
+tqdm
+pandas
+scipy
+matplotlib
+
