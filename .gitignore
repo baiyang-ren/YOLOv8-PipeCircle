@@ -1,5 +1,6 @@
 env/
 datasets/
+comparison_results/
 runs/
 *.pt
 *.pyc
